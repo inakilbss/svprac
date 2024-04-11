@@ -30,8 +30,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH: {
 			BasicHook::setTargetBase(GetModuleHandleW(NULL));
-    		//BasicHook testHook(0x6eeb64, "48415800");
-            std::vector<NopHook> rankExHooks({
+            BasicHook titleHook(0x6e6bbc, "5356707261632072312020202020666f72"); // SVprac r1     for 1.23
+            std::vector<NopHook> hooks({
                 NopHook(0x1094ad, 18), // hidden boss
 				NopHook(0x101f3e, 13), // rings type C
 				NopHook(0x103933, 13), // rings type S
@@ -40,7 +40,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 NopHook(0x31df1b, 9), // 3 way poniards not on ESY-NML
 
             });
-            for (auto i = rankExHooks.begin(); i != rankExHooks.end(); ++i)
+            titleHook.enable();
+            for (auto i = hooks.begin(); i != hooks.end(); ++i)
             {
                 i->enable();
             }
