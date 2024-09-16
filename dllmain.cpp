@@ -45,12 +45,20 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 BasicHook(0x3b125d, "89"),
                 BasicHook(0x3b0eb7, "eb"), // this is the functional part, all else is for the string
             });
+            std::vector<BasicHook> practiceRankHooks({
+                BasicHook(0x3af54c, "8d"), // increasing rank
+                BasicHook(0x3afb5c, "8d"), // decreasing rank
+            });
             titleHook.enable();
             for (auto i = rankExHooks.begin(); i != rankExHooks.end(); ++i)
             {
                 i->enable();
             }
             for (auto i = practiceSRuleHooks.begin(); i != practiceSRuleHooks.end(); ++i)
+            {
+                i->enable();
+            }
+            for (auto i = practiceRankHooks.begin(); i != practiceRankHooks.end(); ++i)
             {
                 i->enable();
             }
