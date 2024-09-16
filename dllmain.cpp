@@ -31,17 +31,26 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_ATTACH: {
 			BasicHook::setTargetBase(GetModuleHandleW(NULL));
             BasicHook titleHook(0x6e6bbc, "5356707261632072312020202020666f72"); // SVprac r1     for 1.23
-            std::vector<NopHook> hooks({
+            std::vector<NopHook> rankExHooks({
                 NopHook(0x1094ad, 18), // hidden boss
 				NopHook(0x101f3e, 13), // rings type C
 				NopHook(0x103933, 13), // rings type S
                 NopHook(0x31dc3b, 9), // angry tetrapedes
                 NopHook(0x31dece, 9), // 3 way poniards
                 NopHook(0x31df1b, 9), // 3 way poniards not on ESY-NML
-
+            });
+            std::vector<BasicHook> practiceSRuleHooks({
+                BasicHook(0x6ee978, "532e52554c450000"),
+                BasicHook(0x3b1258, "a1"),
+                BasicHook(0x3b125d, "89"),
+                BasicHook(0x3b0eb7, "eb"), // this is the functional part, all else is for the string
             });
             titleHook.enable();
-            for (auto i = hooks.begin(); i != hooks.end(); ++i)
+            for (auto i = rankExHooks.begin(); i != rankExHooks.end(); ++i)
+            {
+                i->enable();
+            }
+            for (auto i = practiceSRuleHooks.begin(); i != practiceSRuleHooks.end(); ++i)
             {
                 i->enable();
             }
