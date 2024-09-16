@@ -30,7 +30,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH: {
 			BasicHook::setTargetBase(GetModuleHandleW(NULL));
-            BasicHook titleHook(0x6e6bbc, "5356707261632072312020202020666f72"); // SVprac r1     for 1.23
+            BasicHook titleHook(0x6e6bbc, "5356707261632072322020202020666f72"); // SVprac r2     for 1.23
             std::vector<NopHook> rankExHooks({
                 NopHook(0x1094ad, 18), // hidden boss
 				NopHook(0x101f3e, 13), // rings type C
