@@ -49,6 +49,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 BasicHook(0x3af54c, "8d"), // increasing rank
                 BasicHook(0x3afb5c, "8d"), // decreasing rank
             });
+            std::vector<BasicHook> systemShopHooks({
+                BasicHook(0xc1b10, "b801000000c20400"), // isFeatureUnlocked: mov eax,1; ret 4;
+            });
             titleHook.enable();
             for (auto i = rankExHooks.begin(); i != rankExHooks.end(); ++i)
             {
@@ -59,6 +62,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 i->enable();
             }
             for (auto i = practiceRankHooks.begin(); i != practiceRankHooks.end(); ++i)
+            {
+                i->enable();
+            }
+            for (auto i = systemShopHooks.begin(); i != systemShopHooks.end(); ++i)
             {
                 i->enable();
             }
