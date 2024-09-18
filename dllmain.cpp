@@ -52,6 +52,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             std::vector<BasicHook> systemShopHooks({
                 BasicHook(0xc1b10, "b801000000c20400"), // isFeatureUnlocked: mov eax,1; ret 4;
             });
+            std::vector<BasicHook> windowFocusHooks({
+                NopHook(0x40f8b1, 6),
+            });
             titleHook.enable();
             for (auto i = rankExHooks.begin(); i != rankExHooks.end(); ++i)
             {
@@ -66,6 +69,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 i->enable();
             }
             for (auto i = systemShopHooks.begin(); i != systemShopHooks.end(); ++i)
+            {
+                i->enable();
+            }
+            for (auto i = windowFocusHooks.begin(); i != windowFocusHooks.end(); ++i)
             {
                 i->enable();
             }
