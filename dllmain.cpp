@@ -52,6 +52,11 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             std::vector<BasicHook> systemShopHooks({
                 BasicHook(0xc1b10, "b801000000c20400"), // isFeatureUnlocked: mov eax,1; ret 4;
             });
+            std::vector<BasicHook> statLevelHooks({
+                BasicHook(0xcc089, "c6c03c"), // level += 10 -> level = 60
+                BasicHook(0xcc0bd, "9090"), // assume slot x1 equipped
+                BasicHook(0xcbe3c, "9090"), // stone limit ignored
+            });
             std::vector<BasicHook> windowFocusHooks({
                 NopHook(0x40f8b1, 6),
             });
@@ -69,6 +74,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                 i->enable();
             }
             for (auto i = systemShopHooks.begin(); i != systemShopHooks.end(); ++i)
+            {
+                i->enable();
+            }
+            for (auto i = statLevelHooks.begin(); i != statLevelHooks.end(); ++i)
             {
                 i->enable();
             }
