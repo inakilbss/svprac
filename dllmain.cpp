@@ -7,20 +7,6 @@
 
 import StellaHook;
 
-int popupError(std::string userMessage)
-{
-    return MessageBoxA(NULL, (userMessage + "\nQuit program?").c_str(), "Hook Error", MB_YESNO);
-}
-
-void popupError(std::wstring userMessage)
-{
-    DWORD errorCode = GetLastError();
-	#pragma warning(suppress : 4996) // STL encoding conversion is deprecated but using Win32 for string processing is unreasonably hard
-    std::wstring errorMessage = std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>().from_bytes(std::system_category().message(errorCode));
-    std::wstring fullMessage = std::format(L"{} (code {}):\n{}", userMessage, errorCode, errorMessage).c_str();
-    MessageBoxW(NULL, fullMessage.c_str(), userMessage.c_str(), MB_OK);
-}
-
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved

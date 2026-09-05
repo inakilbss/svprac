@@ -70,8 +70,8 @@ protected:
 		case 'F':
 		case 'f':
 			return 15;
-		default:
-			throw std::exception("Invalid hex digit");
+			default:
+			throw "Invalid hex digit";
 		}
 	}
 
@@ -93,13 +93,10 @@ public:
 	{
 		size_t j = hexData.size();
 		if (j % 2) {
-			throw std::exception("Odd-sized hex data string");
+			throw "Odd-sized hex data string";
 		}
 		for (auto i = hexData.begin(); i != hexData.end(); i += 2) {
 			swapBuffer.push_back(parseNybble(*i) << 4 | parseNybble(*(i + 1)));
-		}
-		if (swapBuffer.size() != hexData.size() / 2) {
-			throw std::exception();
 		}
 	}
 
